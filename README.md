@@ -1,5 +1,7 @@
 # Experimentation & Segmentation
 
+**[Live Interactive Dashboard](https://nicholasjh-work.github.io/feature-adoption-retention/)**
+
 A/B test analysis framework and behavioral user segmentation for a wearable health platform. Uses statistical testing (Welch's t-test, Cohen's d, confidence intervals) and K-Means clustering on health KPIs.
 
 ## Quick Start
