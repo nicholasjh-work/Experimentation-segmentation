@@ -7,13 +7,12 @@ A/B test analysis framework and behavioral user segmentation for a wearable heal
 ## Quick Start
 
 ```bash
-git clone https://github.com/nicholasjh-work/experimentation-segmentation.git
-cd experimentation-segmentation
+git clone https://github.com/nicholasjh-work/Experimentation-segmentation.git
+cd Experimentation-segmentation
 pip install -r requirements.txt
 
-# Requires infra-data-pipelines demo.duckdb to exist
-# If not: cd ../infra-data-pipelines && python demo.py
-python demo.py --db ../infra-data-pipelines/demo.duckdb
+# Requires infra-data-pipelines demo to have run first (PostgreSQL loaded)
+python demo.py
 ```
 
 The demo runs tests, analyzes A/B experiments, segments users, and generates all charts.
@@ -44,9 +43,9 @@ Experiment 2: New Coaching Tip UI
 
 ```
 Segment Profiles:
-  Power    (n=2,434):  HRV=72.6  Strain=13.4  Recovery=77.3  Sleep=7.4h
-  Active   (n=2,863):  HRV=65.6  Strain=12.1  Recovery=70.5  Sleep=7.0h
-  Casual   (n=4,703):  HRV=60.8  Strain=11.2  Recovery=65.4  Sleep=6.8h
+  Power    (n=2,412):  HRV=72.6  Strain=13.4  Recovery=77.3  Sleep=7.4h
+  Active   (n=2,835):  HRV=65.7  Strain=12.1  Recovery=70.5  Sleep=7.0h
+  Casual   (n=4,753):  HRV=60.8  Strain=11.2  Recovery=65.4  Sleep=6.8h
 ```
 
 ### Test Suite (10/10 passing)
@@ -74,13 +73,11 @@ result = analyzer.analyze(control_values, treatment_values)
 
 result.decision        # "Ship" or "Iterate"
 result.p_value         # 0.0023
-result.cohen_d         # 0.42 (small=0.2, medium=0.5, large=0.8)
-result.ci_low          # 1.23  (95% CI lower bound)
-result.ci_high         # 4.87  (95% CI upper bound)
+result.cohen_d         # 0.42
+result.ci_low          # 1.23
+result.ci_high         # 4.87
 result.control_mean    # 50.1
 result.treatment_mean  # 53.2
-result.control_n       # 500
-result.treatment_n     # 500
 ```
 
 ## dbt Models
@@ -104,20 +101,11 @@ result.treatment_n     # 500
 | `week_start` | Start of ISO week |
 | `avg_hrv`, `avg_strain`, `avg_recovery`, `avg_sleep_hours`, `avg_sleep_quality` | Weekly averages |
 
-## Running with Snowflake (Production)
-
-```bash
-cp profiles.yml.example ~/.dbt/profiles.yml
-cp .env.example .env
-dbt build
-pytest tests/ -v
-```
-
 ## Related Repos
 
-- [infra-data-pipelines](https://github.com/nicholasjh-work/infra-data-pipelines) - Data generation and ingestion
+- [Infra-data-pipelines](https://github.com/nicholasjh-work/Infra-data-pipelines) - Data generation and ingestion
 - [feature-adoption-retention](https://github.com/nicholasjh-work/feature-adoption-retention) - Weekly adoption metrics and cohort retention
 
 ## Tech Stack
 
-Python, SciPy, scikit-learn, dbt, Snowflake, DuckDB, matplotlib, pytest
+Python, SciPy, scikit-learn, PostgreSQL, dbt, Snowflake, matplotlib, pytest, SQLAlchemy

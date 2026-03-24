@@ -1,5 +1,7 @@
 dbt-core
 dbt-snowflake
+psycopg2-binary
+sqlalchemy
 pandas
 numpy
 scipy
@@ -12,5 +14,3 @@ black
 isort
 pytest
 snowflake-connector-python
-snowflake-sqlalchemy
-sqlalchemy
