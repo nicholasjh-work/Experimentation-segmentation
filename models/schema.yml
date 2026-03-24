@@ -1,0 +1,55 @@
+version: 2
+
+sources:
+  - name: raw
+    database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+    schema: RAW
+    tables:
+      - name: experiment_assignments
+      - name: experiments
+      - name: feature_events
+      - name: daily_metrics
+
+models:
+  - name: fct_experiment_outcomes
+    description: "Experiment outcomes by variant: conversion rate and average health metrics during the experiment window."
+    columns:
+      - name: experiment_id
+        tests:
+          - not_null
+      - name: variant
+        tests:
+          - not_null
+      - name: participants
+        tests:
+          - not_null
+      - name: conversion_rate
+      - name: avg_hrv
+      - name: avg_resting_hr
+      - name: avg_sleep_hours
+      - name: avg_sleep_quality
+      - name: avg_strain
+      - name: avg_recovery
+    tests:
+      - unique:
+          column_name: "experiment_id || '-' || variant"
+
+  - name: fct_health_kpis
+    description: "Weekly aggregated health metrics per member for segmentation and trend reporting."
+    columns:
+      - name: member_id
+        tests:
+          - not_null
+      - name: week_start
+        tests:
+          - not_null
+      - name: avg_hrv
+      - name: avg_resting_hr
+      - name: avg_sleep_hours
+      - name: avg_sleep_quality
+      - name: avg_strain
+      - name: avg_recovery
+      - name: avg_calories
+    tests:
+      - unique:
+          column_name: "member_id || '-' || week_start"

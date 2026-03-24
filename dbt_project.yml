@@ -1,0 +1,11 @@
+name: 'experimentation_segmentation'
+version: '1.0.0'
+config-version: 2
+profile: 'default'
+model-paths: ['models']
+docs-paths: ['docs']
+test-paths: ['tests']
+
+models:
+  experimentation_segmentation:
+    +materialized: table

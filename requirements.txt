@@ -1,0 +1,16 @@
+dbt-core
+dbt-snowflake
+pandas
+numpy
+scipy
+scikit-learn
+matplotlib
+jupyter
+pre-commit
+flake8
+black
+isort
+pytest
+snowflake-connector-python
+snowflake-sqlalchemy
+sqlalchemy
