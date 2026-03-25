@@ -7,6 +7,7 @@ Covers:
 - Input validation (too few observations)
 - Effect size direction
 """
+
 import numpy as np
 import pytest
 
